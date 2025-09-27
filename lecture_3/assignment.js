@@ -72,3 +72,6 @@ console.log(unique);
 let arr1 = [-1,20,90,4,5,111]
 const sumllestTwo = arr1.sort((a, b) => a - b).slice(0, 2).reduce((a, b) => a + b, 0)
 console.log(sumllestTwo);
+
+
+

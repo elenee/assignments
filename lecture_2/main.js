@@ -77,6 +77,3 @@ console.log(array5);
 // 10)
 let arr6 = [1,[2,[3]],[4]];
 console.log(arr6.flat(Infinity));
-
-
-
