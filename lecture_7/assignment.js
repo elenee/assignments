@@ -98,7 +98,6 @@ class CryptoWallet {
     }
 }
 
-console.log('\n');
 
 let acc1 = new CryptoWallet()
 let acc2 = new CryptoWallet()
@@ -165,5 +164,5 @@ class Freelancer{
     }
 }
 
-let freelancer = new Freelancer(20, 180, 7)
+let freelancer = new Freelancer(20, 140, 7)
 console.log(freelancer.calculateEarnings());
