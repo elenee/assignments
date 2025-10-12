@@ -48,27 +48,27 @@ let user2 = [
     },
 ]
 
-async function func() {
-    await fs.writeFile('data.json', JSON.stringify(user1))
-    let readJSON = await fs.readFile("data.json", "utf-8")
-    let parsed = JSON.parse(readJSON)
-    console.log(parsed);
-    
-}
-
-func()
-
-
-// async function main1() {
-//     let both = [...user1,...user2]
-//     fs.writeFile("data.json", JSON.stringify(both))
-//     let read = await fs.readFile("data.json", "utf-8")
-//     let parsed = JSON.parse(read)
+// async function func() {
+//     await fs.writeFile('data.json', JSON.stringify(user1))
+//     let readJSON = await fs.readFile("data.json", "utf-8")
+//     let parsed = JSON.parse(readJSON)
 //     console.log(parsed);
     
 // }
 
-// main1()
+// func()
+
+
+async function main1() {
+    let both = [...user1,...user2]
+    fs.writeFile("data.json", JSON.stringify(both))
+    let read = await fs.readFile("data.json", "utf-8")
+    let parsed = JSON.parse(read)
+    console.log(parsed);
+    
+}
+
+main1()
 
 
 // წაიკითხე ყველა რიცხვი ფაილიდან, გამოთვალე მათი ჯამი და ჩაწერე სხვა ფაილში

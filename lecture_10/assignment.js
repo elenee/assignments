@@ -53,7 +53,7 @@ async function main() {
     await fs.writeFile("third.txt", combined)    
 }
 
-// main()
+main()
 
 // 5)
 async function func() {
