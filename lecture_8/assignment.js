@@ -33,8 +33,9 @@ let counted = words.reduce((a, b) => {
     }
     return a
 }, {})
-const maxCount = Object.entries(counted).sort((a, b) => b - a)[0]
-console.log(maxCount);
+console.log(counted);
+const maxCount = Object.entries(counted).sort((a, b) => b[1] - a[1])[0]
+console.log("maxCount:", maxCount);
 
 
 // ForLoop tasks
