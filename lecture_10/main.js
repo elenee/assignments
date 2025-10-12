@@ -48,15 +48,15 @@ let user2 = [
     },
 ]
 
-// async function func() {
-//     fs.writeFile('data.json', JSON.stringify(user1))
-//     let readJSON = await fs.readFile("data.json", "utf-8")
-//     let parsed = JSON.parse(readJSON)
-//     console.log(parsed);
+async function func() {
+    await fs.writeFile('data.json', JSON.stringify(user1))
+    let readJSON = await fs.readFile("data.json", "utf-8")
+    let parsed = JSON.parse(readJSON)
+    console.log(parsed);
     
-// }
+}
 
-// func()
+func()
 
 
 // async function main1() {

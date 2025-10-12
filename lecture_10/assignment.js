@@ -39,7 +39,7 @@ async function usersFunc() {
     console.log(readUsers);
 }
 
-// usersFunc()
+usersFunc()
 
 // 4)
 async function main() {
@@ -97,7 +97,7 @@ async function studentsFunc() {
     console.log(filtered);
 
 }
-// studentsFunc()
+studentsFunc()
 
 // 8)
 const users2 = [
