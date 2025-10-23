@@ -1,6 +1,7 @@
 const fs = require('fs/promises');
 const path = require('path')
-const http = require('http')
+const http = require('http');
+const { log } = require('console');
 
 // 1)
 async function main() {
@@ -11,11 +12,13 @@ async function main() {
     await fs.writeFile('text3.txt', 'hello');
 
     let files = await fs.readdir(__dirname);
+    console.log(files);
+    
 
     for(let item of files) {
         let fullPath = path.join(__dirname, item);
         let infoStat = await fs.lstat(fullPath);
-
+        
         if(infoStat.isDirectory() && ['folder1', 'folder2'].includes(item)) {
             await fs.rm(fullPath, { recursive: true });
             console.log(item + ' deleted');
@@ -23,7 +26,7 @@ async function main() {
     }
 }
 
-// main()
+main()
 
 // 2)
 async function CreateFolder() {
@@ -48,7 +51,6 @@ async function CreateFolder() {
             }
             
             main();
-            console.log("working")
         \`);
 }
         CreateInnerFolder();
@@ -85,7 +87,7 @@ async function main1() {
     console.log(allText);
 
 }
-main1()
+// main1()
 
 // 4)
 const animals = ["dog", "cat", "lion"];
