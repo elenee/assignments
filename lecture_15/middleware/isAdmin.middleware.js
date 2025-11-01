@@ -1,7 +1,6 @@
 module.exports = (req, res, next) => {
-    const isAdminRole = req.headers.admin;
-    if(!isAdminRole || isAdminRole !== "admin") {
-        return res.status(403).json({ message: 'unauthorized request', data: 'not an admin' })
+    if(!req.headers.admin || req.headers.admin !== 'admin') {
+        return res.status(403).json({ message: "unauthorized request", data: null})
     }
     next()
-}
+} 

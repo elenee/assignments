@@ -1,9 +1,9 @@
 const { Router } = require('express')
-const validApiMiddleware = require('../middleware/validApi.middleware')
+const isValidApiMiddleware = require('../middleware/isValidApi.middleware')
 
 const secretRouter = Router()
 
-secretRouter.get("/", validApiMiddleware, (req, res) => {
+secretRouter.get("/", isValidApiMiddleware, (req, res) => {
     return res.json({message: 'secret info'})
 })
 

@@ -1,5 +1,5 @@
 function logger(req, res, next) {
-    console.log('logger middleware');
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     next()   
 }
 
