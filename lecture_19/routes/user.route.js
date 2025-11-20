@@ -4,7 +4,7 @@ const userModel = require("../models/user.model");
 const userRouter = Router();
 
 userRouter.get("/", async (req, res) => {
-  const users = await userModel.find();
+  const users = await userModel.find().populate("posts");
   res.status(200).json(users);
 });
 
