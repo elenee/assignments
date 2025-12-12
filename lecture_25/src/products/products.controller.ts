@@ -1,20 +1,23 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
+import { HasUserIDGuard } from './guards/hasUserIDGurad';
 
 @Controller('products')
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
+  @UseGuards(HasUserIDGuard)
   @Post()
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productsService.create(createProductDto);
+  create(@Req() request, @Body() createProductDto: CreateProductDto) {
+    const userId = request.userId;
+    return this.productsService.create(userId, createProductDto);
   }
 
   @Get()
   findAll() {
-    return this.productsService.findAll();
+    return this.productsService.findAll()
   }
 
   @Get(':id')
