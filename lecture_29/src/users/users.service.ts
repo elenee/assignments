@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { User } from './schema/user.schema';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -24,7 +25,7 @@ export class UsersService {
   }
 
   findAll() {
-    return this.userModel.find();
+    return this.userModel.find().populate('posts');
   }
 
   async findByEmail(email: string) {
@@ -38,13 +39,16 @@ export class UsersService {
 
   async findOne(id: string) {
     if (!isValidObjectId(id)) throw new BadRequestException('invalid mongo id');
-    const user = await this.userModel.findById(id);
+    const user = await this.userModel.findById(id).populate('posts');
     if (!user) throw new NotFoundException('user not found');
     return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
     if (!isValidObjectId(id)) throw new BadRequestException('invalid mongo id');
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
+    }
     const user = await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       new: true,
     });
@@ -57,5 +61,16 @@ export class UsersService {
     const user = await this.userModel.findByIdAndDelete(id);
     if (!user) throw new NotFoundException('user not found');
     return user;
+  }
+
+  async addPost(userId, postId) {
+    const updatedUser = await this.userModel.findByIdAndUpdate(
+      userId,
+      {
+        $push: { posts: postId },
+      },
+      { new: true },
+    );
+    return updatedUser;
   }
 }
