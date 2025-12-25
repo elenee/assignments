@@ -1,6 +1,8 @@
 import {
   BadGatewayException,
   BadRequestException,
+  forwardRef,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -10,10 +12,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { User } from './schema/user.schema';
 import * as bcrypt from 'bcrypt';
+import { Post } from 'src/posts/schema/post.schema';
+import { PostsService } from 'src/posts/posts.service';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel('user') private userModel: Model<User>) {}
+  constructor(
+    @InjectModel('user') private userModel: Model<User>,
+    @Inject(forwardRef(() => PostsService))
+    private postsService: PostsService,
+    // @InjectModel('post') private postModel: Model<any>,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const existingUser = await this.userModel.findOne({
@@ -60,6 +69,8 @@ export class UsersService {
     if (!isValidObjectId(id)) throw new BadRequestException('invalid mongo id');
     const user = await this.userModel.findByIdAndDelete(id);
     if (!user) throw new NotFoundException('user not found');
+    await this.postsService.postByUserId(user._id);
+    // await this.postModel.deleteMany({user: user._id})
     return user;
   }
 

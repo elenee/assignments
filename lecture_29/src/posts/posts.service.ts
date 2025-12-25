@@ -1,5 +1,7 @@
 import {
   BadRequestException,
+  forwardRef,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -14,6 +16,7 @@ import { UsersService } from 'src/users/users.service';
 export class PostsService {
   constructor(
     @InjectModel('post') private postsModel: Model<Post>,
+    @Inject(forwardRef(() => UsersService))
     private usersService: UsersService,
   ) {}
 
@@ -53,5 +56,9 @@ export class PostsService {
     const post = await this.postsModel.findByIdAndUpdate(id);
     if (!post) throw new NotFoundException();
     return post;
+  }
+
+  async postByUserId(id) {
+    await this.postsModel.deleteMany({ user: id });
   }
 }
