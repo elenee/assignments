@@ -58,7 +58,8 @@ export class PostsService {
     return post;
   }
 
-  async postByUserId(id) {
+  async removePostsByUserId(id){
+    if(!isValidObjectId(id)) throw new BadRequestException()
     await this.postsModel.deleteMany({ user: id });
   }
 }

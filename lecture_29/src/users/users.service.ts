@@ -69,7 +69,7 @@ export class UsersService {
     if (!isValidObjectId(id)) throw new BadRequestException('invalid mongo id');
     const user = await this.userModel.findByIdAndDelete(id);
     if (!user) throw new NotFoundException('user not found');
-    await this.postsService.postByUserId(user._id);
+    await this.postsService.removePostsByUserId(user._id);
     // await this.postModel.deleteMany({user: user._id})
     return user;
   }
