@@ -16,7 +16,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
     PostsModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'src/schema.sql'
+      autoSchemaFile: 'src/schema.gql'
     }),
   ],
   controllers: [AppController],
